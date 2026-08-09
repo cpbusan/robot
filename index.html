@@ -305,7 +305,7 @@
         </div>
         <div class="card">
           <label>연락처 (000-0000-0000)<span class="req">*</span></label>
-          <input type="tel" name="phone" placeholder="010-0000-0000" required>
+          <input type="text" inputmode="numeric" name="phone" id="phoneInput" placeholder="010-0000-0000" required>
         </div>
         <div class="card">
           <label>사전질문</label>
@@ -469,6 +469,18 @@
   // ▼▼▼ 배포 후 Apps Script 웹 앱 URL로 반드시 교체 ▼▼▼
   const GAS_URL = "https://script.google.com/macros/s/AKfycbzwdnyDpLKEaBFJphLTbdW37rvoTusRV3y7vC_uSYpyJ9HEE6BEsDdSAfylK69CLaof/exec";
 
+  /* 연락처 자동 하이픈 포맷 */
+  document.getElementById('phoneInput').addEventListener('input', (e) => {
+    let v = e.target.value.replace(/[^0-9]/g, '').slice(0, 11);
+    if (v.length < 4) {
+      e.target.value = v;
+    } else if (v.length < 8) {
+      e.target.value = v.slice(0, 3) + '-' + v.slice(3);
+    } else {
+      e.target.value = v.slice(0, 3) + '-' + v.slice(3, 7) + '-' + v.slice(7);
+    }
+  });
+
   /* 개인정보 안내 모달 */
   const privacyModalOverlay = document.getElementById('privacyModalOverlay');
   function openPrivacyModal(e) {
@@ -559,6 +571,14 @@
     individualMsg.className = 'msg';
 
     const fd = new FormData(individualForm);
+
+    const phoneDigits = fd.get('phone').replace(/[^0-9]/g, '');
+    if (phoneDigits.length !== 11) {
+      individualMsg.textContent = '연락처를 다시 확인해주세요. (010-0000-0000 형식, 숫자 11자리)';
+      individualMsg.classList.add('error');
+      return;
+    }
+
     let assistive = fd.get('assistive');
     if (assistive === '기타') {
       const etc = document.getElementById('assistiveEtcInput').value.trim();

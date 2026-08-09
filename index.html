@@ -153,7 +153,14 @@
 
   .result-screen { display: none; text-align: center; padding: 60px 20px; }
   .result-screen h2 { font-size: 19px; margin-bottom: 10px; color: var(--navy); }
-  .result-screen p { font-size: 14px; color: var(--sub); line-height: 1.7; }
+  .result-screen p { font-size: 14px; color: var(--sub); line-height: 1.7; margin-bottom: 26px; }
+  .result-btns { display: flex; flex-direction: column; gap: 10px; max-width: 320px; margin: 0 auto; }
+  .result-btn {
+    display: block; text-align: center; padding: 14px; border-radius: 12px;
+    font-size: 14.5px; font-weight: 700; text-decoration: none; cursor: pointer; border: none;
+  }
+  .result-btn.primary { background: linear-gradient(90deg, var(--navy), var(--blue)); color: #fff; }
+  .result-btn.secondary { background: var(--card-light); color: var(--navy); border: 1px solid var(--border); }
 
   /* 하단 신청하러가기 */
   .bottom-cta { padding: 40px 0 10px; text-align: center; }
@@ -209,8 +216,8 @@
           <input type="text" name="org" required>
         </div>
         <div class="card">
-          <label>직책<span class="req">*</span></label>
-          <input type="text" name="position" required>
+          <label>직책</label>
+          <input type="text" name="position">
         </div>
         <div class="card">
           <label>연락처 (000-0000-0000)<span class="req">*</span></label>
@@ -309,6 +316,9 @@
 <div class="result-screen" id="resultScreen">
   <h2>신청이 완료되었습니다 🙌</h2>
   <p>신청이 정상적으로 접수되었습니다.</p>
+  <div class="result-btns">
+    <button type="button" class="result-btn primary" id="goHomeBtn">홈페이지로 돌아가기</button>
+  </div>
 </div>
 
 <script>
@@ -389,6 +399,26 @@
       individualBtn.textContent = '제출하기';
     }
   });
+
+  function backToMain(scrollTargetId) {
+    document.getElementById('resultScreen').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+    document.querySelector('nav').style.display = 'block';
+
+    // 폼 초기화
+    individualForm.reset();
+    document.getElementById('assistiveEtcInput').style.display = 'none';
+    document.getElementById('assistiveEtcInput').value = '';
+    individualMsg.textContent = '';
+    individualMsg.className = 'msg';
+    individualBtn.disabled = false;
+    individualBtn.textContent = '제출하기';
+
+    const target = document.getElementById(scrollTargetId);
+    if (target) target.scrollIntoView({ behavior: 'auto', block: 'start' });
+  }
+
+  document.getElementById('goHomeBtn').addEventListener('click', () => backToMain('mainContent'));
 </script>
 
 </body>

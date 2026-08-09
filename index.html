@@ -150,6 +150,29 @@
   .radio-group input[type=radio] { margin-right: 10px; accent-color: var(--blue); width: 18px; height: 18px; }
   .etc-input { margin-top: 6px; margin-left: 28px; width: calc(100% - 28px); }
   .consent-text { font-size: 13.5px; color: var(--sub); line-height: 1.6; margin-bottom: 12px; }
+  .consent-link { color: var(--blue); font-weight: 700; text-decoration: underline; }
+
+  /* 개인정보 안내 모달 */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(10,20,50,0.55);
+    z-index: 100; align-items: flex-end; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: #fff; width: 100%; max-width: 760px; max-height: 82vh; overflow-y: auto;
+    border-radius: 20px 20px 0 0; padding: 26px 22px 34px; position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px; width: 34px; height: 34px;
+    border-radius: 50%; border: 1px solid var(--border); background: var(--card-light);
+    font-size: 16px; color: var(--sub); cursor: pointer; line-height: 1;
+  }
+  .modal-box h3 { font-size: 18px; color: var(--navy); margin: 0 26px 18px 0; }
+  .modal-box .m-intro { font-size: 13.5px; color: var(--sub); line-height: 1.7; margin-bottom: 20px; }
+  .modal-box .m-label { font-size: 12px; font-weight: 700; color: var(--blue); margin: 16px 0 4px; }
+  .modal-box .m-value { font-size: 14px; color: var(--text); line-height: 1.7; }
+  .modal-box hr { border: none; border-top: 1px solid var(--border); margin: 22px 0 14px; }
+  .modal-box .m-footer { font-size: 12.5px; color: var(--sub); line-height: 1.7; }
 
   /* 신청확인 */
   .check-toggle-row { margin-bottom: 14px; }
@@ -281,7 +304,7 @@
         </div>
         <div class="card">
           <label>개인정보활용 동의<span class="req">*</span></label>
-          <div class="consent-text">이름, 연락처, 소속 등은 참여자의 확인과 사전 안내를 위해 활용되며, 외부에 유출되지 않습니다.</div>
+          <div class="consent-text">이름, 연락처, 소속 등은 참여자의 확인과 사전 안내를 위해 활용되며, 외부에 유출되지 않습니다. <a href="#" id="openPrivacyModal" class="consent-link">자세히 보기</a></div>
           <div class="radio-group">
             <label><input type="radio" name="privacyConsent" value="동의" required checked> 동의</label>
             <label><input type="radio" name="privacyConsent" value="미동의"> 미동의</label>
@@ -363,6 +386,32 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="privacyModalOverlay">
+  <div class="modal-box">
+    <button type="button" class="modal-close" id="closePrivacyModal">✕</button>
+    <h3>개인정보 수집·이용 안내</h3>
+    <div class="m-intro">부산뇌병변복지관은 「개인정보 보호법」에 따라 로봇 활용을 통한 재활훈련 성과보고회 참가 접수를 위해 아래와 같이 개인정보를 수집·이용합니다. 내용을 확인하신 후 신청해 주세요.</div>
+
+    <div class="m-label">수집 항목</div>
+    <div class="m-value">성함, 소속, 연락처 (직책, 사전질문은 선택 입력)</div>
+
+    <div class="m-label">수집·이용 목적</div>
+    <div class="m-value">성과보고회 참가자 확인 및 사전 안내 연락</div>
+
+    <div class="m-label">보유·이용 기간</div>
+    <div class="m-value">행사 종료 후 3개월 이내 파기 (단, 사업 결과보고서 작성을 위해 필요한 경우 해당 목적 범위 내에서 보관 후 파기)</div>
+
+    <div class="m-label">동의 거부 권리</div>
+    <div class="m-value">개인정보 수집·이용에 대한 동의를 거부할 권리가 있습니다. 다만 동의를 거부하실 경우 참가 신청 및 안내가 제한될 수 있습니다.</div>
+
+    <hr>
+    <div class="m-footer">
+      신청서를 제출하면 위 개인정보 수집·이용에 동의한 것으로 봅니다.<br>
+      문의: 부산뇌병변복지관 (051-333-3888)
+    </div>
+  </div>
+</div>
+
 <script>
   // D-day 계산
   (function () {
@@ -378,6 +427,19 @@
 
   // ▼▼▼ 배포 후 Apps Script 웹 앱 URL로 반드시 교체 ▼▼▼
   const GAS_URL = "https://script.google.com/macros/s/AKfycbzwdnyDpLKEaBFJphLTbdW37rvoTusRV3y7vC_uSYpyJ9HEE6BEsDdSAfylK69CLaof/exec";
+
+  /* 개인정보 안내 모달 */
+  const privacyModalOverlay = document.getElementById('privacyModalOverlay');
+  document.getElementById('openPrivacyModal').addEventListener('click', (e) => {
+    e.preventDefault();
+    privacyModalOverlay.classList.add('open');
+  });
+  document.getElementById('closePrivacyModal').addEventListener('click', () => {
+    privacyModalOverlay.classList.remove('open');
+  });
+  privacyModalOverlay.addEventListener('click', (e) => {
+    if (e.target === privacyModalOverlay) privacyModalOverlay.classList.remove('open');
+  });
 
   /* 신청확인 */
   const checkToggleBtn = document.getElementById('checkToggleBtn');

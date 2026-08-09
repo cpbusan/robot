@@ -217,7 +217,26 @@
   .bottom-cta { padding: 40px 0 10px; text-align: center; }
   .bottom-cta p { font-size: 14px; color: var(--sub); margin-bottom: 14px; }
 
-  footer { padding: 30px 0 50px; text-align: center; font-size: 13px; color: var(--sub); }
+  footer {
+    margin-top: 30px;
+    background: linear-gradient(160deg, var(--hero-bg) 0%, var(--navy) 100%);
+    padding: 40px 0 34px; color: #B9C4E6;
+  }
+  footer .wrap { text-align: left; }
+  footer .f-title { font-size: 19px; font-weight: 800; color: #fff; margin-bottom: 22px; }
+  footer .f-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px 16px; margin-bottom: 24px;
+  }
+  footer .f-label { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 6px; letter-spacing: 0.3px; }
+  footer .f-value { font-size: 13.5px; color: #fff; line-height: 1.6; }
+  footer hr { border: none; border-top: 1px solid rgba(255,255,255,0.16); margin: 22px 0 18px; }
+  footer .f-notice { font-size: 12.5px; color: #B9C4E6; line-height: 1.7; margin-bottom: 14px; }
+  footer .f-policy-btn {
+    display: inline-block; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22);
+    color: #fff; font-size: 13px; font-weight: 700; padding: 11px 18px; border-radius: 10px;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
@@ -373,8 +392,30 @@
   </section>
 
   <footer>
-    로봇 활용을 통한 재활훈련 성과보고회 · 주관 부산뇌병변복지관<br>
-    문의 051-333-3888
+    <div class="wrap">
+      <div class="f-title">로봇 활용을 통한 재활훈련 성과보고회</div>
+      <div class="f-grid">
+        <div>
+          <div class="f-label">공동주최</div>
+          <div class="f-value">부산뇌병변복지관<br><span style="color:#8291BE;">(이후 참여기관 추가 예정)</span></div>
+        </div>
+        <div>
+          <div class="f-label">주관</div>
+          <div class="f-value">부산뇌병변복지관</div>
+        </div>
+        <div>
+          <div class="f-label">후원</div>
+          <div class="f-value">부산사회복지공동모금회</div>
+        </div>
+        <div>
+          <div class="f-label">일시 · 장소</div>
+          <div class="f-value">2026.9.8(화) 14:00~17:00<br>부산시사회복지종합센터 2층 대강당</div>
+        </div>
+      </div>
+      <hr>
+      <div class="f-notice">신청서를 제출하면 개인정보 수집·이용에 동의한 것으로 봅니다. 자세한 내용은 아래에서 확인하실 수 있습니다.<br>문의 051-333-3888</div>
+      <button type="button" class="f-policy-btn" id="footerPrivacyBtn">개인정보 처리방침 보기</button>
+    </div>
   </footer>
 </div>
 
@@ -430,10 +471,12 @@
 
   /* 개인정보 안내 모달 */
   const privacyModalOverlay = document.getElementById('privacyModalOverlay');
-  document.getElementById('openPrivacyModal').addEventListener('click', (e) => {
-    e.preventDefault();
+  function openPrivacyModal(e) {
+    if (e) e.preventDefault();
     privacyModalOverlay.classList.add('open');
-  });
+  }
+  document.getElementById('openPrivacyModal').addEventListener('click', openPrivacyModal);
+  document.getElementById('footerPrivacyBtn').addEventListener('click', openPrivacyModal);
   document.getElementById('closePrivacyModal').addEventListener('click', () => {
     privacyModalOverlay.classList.remove('open');
   });

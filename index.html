@@ -25,7 +25,7 @@
     background: #FFFFFF;
     color: var(--text);
   }
-  .wrap { max-width: 640px; margin: 0 auto; padding: 0 18px; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
 
   /* 상단 네비 */
   nav {
@@ -35,10 +35,10 @@
     border-bottom: 1px solid var(--border);
   }
   nav .nav-inner {
-    max-width: 640px; margin: 0 auto; padding: 14px 18px;
+    max-width: 760px; margin: 0 auto; padding: 14px 20px;
     display: flex; flex-wrap: nowrap; align-items: center; justify-content: flex-end;
     gap: 18px; overflow-x: auto; white-space: nowrap;
-    font-size: 13px; font-weight: 600; color: var(--sub);
+    font-size: 14px; font-weight: 600; color: var(--sub);
   }
   nav a { color: var(--sub); text-decoration: none; white-space: nowrap; }
   nav a.active, nav a:hover { color: var(--blue); }
@@ -57,15 +57,15 @@
   .hero .wrap { position: relative; z-index: 1; }
   .hero .eyebrow {
     display: flex; align-items: center; gap: 8px;
-    font-size: 13px; color: var(--accent); font-weight: 700; margin-bottom: 18px; letter-spacing: 0.2px;
+    font-size: 14px; color: var(--accent); font-weight: 700; margin-bottom: 18px; letter-spacing: 0.2px;
   }
   .hero .eyebrow::before { content: ''; width: 22px; height: 2px; background: var(--accent); display: inline-block; }
   .hero h1 {
-    font-size: 34px; line-height: 1.28; margin: 0 0 16px;
+    font-size: 37px; line-height: 1.28; margin: 0 0 16px;
     color: #FFFFFF; font-weight: 800; letter-spacing: -0.5px;
   }
-  .hero h1 .year { display: block; color: var(--accent); font-size: 42px; margin-bottom: 2px; }
-  .hero .desc { font-size: 14px; color: #B9C4E6; line-height: 1.7; margin-bottom: 26px; }
+  .hero h1 .year { display: block; color: var(--accent); font-size: 45px; margin-bottom: 2px; }
+  .hero .desc { font-size: 15px; color: #B9C4E6; line-height: 1.7; margin-bottom: 26px; }
   .hero-stats {
     display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px;
   }
@@ -73,31 +73,31 @@
     background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); border-radius: 10px;
     padding: 10px 14px;
   }
-  .hero-stats .stat .label { font-size: 10.5px; letter-spacing: 0.5px; color: var(--accent); margin-bottom: 4px; font-weight: 700; }
-  .hero-stats .stat .value { font-size: 14px; font-weight: 700; color: #FFFFFF; }
+  .hero-stats .stat .label { font-size: 11.5px; letter-spacing: 0.5px; color: var(--accent); margin-bottom: 4px; font-weight: 700; }
+  .hero-stats .stat .value { font-size: 15px; font-weight: 700; color: #FFFFFF; }
 
   .dday-row {
     display: flex; align-items: center; gap: 16px;
     padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.16);
   }
-  .dday-num { font-size: 32px; font-weight: 800; color: var(--accent); white-space: nowrap; }
-  .dday-text { font-size: 12.5px; color: #B9C4E6; line-height: 1.6; }
+  .dday-num { font-size: 34px; font-weight: 800; color: var(--accent); white-space: nowrap; }
+  .dday-text { font-size: 13.5px; color: #B9C4E6; line-height: 1.6; }
 
   .cta-btn {
     display: inline-block; width: 100%; text-align: center;
     background: linear-gradient(90deg, var(--navy), var(--blue));
     color: #fff; padding: 15px; border-radius: 12px;
-    font-size: 15px; font-weight: 700; text-decoration: none;
+    font-size: 16px; font-weight: 700; text-decoration: none;
   }
 
   /* 섹션 공통 */
   section { padding: 44px 0; border-top: 1px solid var(--border); }
-  section h2 { font-size: 19px; margin: 0 0 6px; color: var(--navy); }
-  section .section-desc { font-size: 13px; color: var(--sub); margin-bottom: 22px; line-height: 1.6; }
+  section h2 { font-size: 21px; margin: 0 0 6px; color: var(--navy); }
+  section .section-desc { font-size: 14px; color: var(--sub); margin-bottom: 22px; line-height: 1.6; }
 
   /* 개요 */
   .info-table { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
-  .info-row { display: flex; border-bottom: 1px solid var(--border); font-size: 13.5px; }
+  .info-row { display: flex; border-bottom: 1px solid var(--border); font-size: 14.5px; }
   .info-row:last-child { border-bottom: none; }
   .info-row .k { width: 96px; flex-shrink: 0; padding: 13px 14px; background: var(--card-light); color: var(--navy); font-weight: 700; }
   .info-row .v { padding: 13px 14px; color: var(--text); line-height: 1.6; }
@@ -111,13 +111,13 @@
     width: 11px; height: 11px; border-radius: 50%;
     background: var(--blue); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--blue);
   }
-  .timeline-item .time { font-size: 12.5px; font-weight: 700; color: var(--blue); margin-bottom: 3px; }
-  .timeline-item .title { font-size: 14.5px; font-weight: 600; }
+  .timeline-item .time { font-size: 13.5px; font-weight: 700; color: var(--blue); margin-bottom: 3px; }
+  .timeline-item .title { font-size: 15.5px; font-weight: 600; }
 
   /* 오시는길 */
   .notice-box {
     background: var(--card-light); border: 1px solid var(--border); border-radius: 14px;
-    padding: 16px 18px; font-size: 13px; line-height: 1.7; color: var(--sub);
+    padding: 16px 18px; font-size: 14px; line-height: 1.7; color: var(--sub);
   }
   .notice-box b { color: var(--navy); }
 
@@ -126,11 +126,11 @@
     background: var(--card); border: 1px solid var(--border); border-radius: 14px;
     padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(23,70,201,0.05);
   }
-  label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  label { display: block; font-size: 15px; font-weight: 600; margin-bottom: 8px; }
   label .req { color: var(--blue); margin-left: 2px; }
   input[type=text], input[type=tel], textarea {
     width: 100%; border: 1px solid var(--border); border-radius: 10px;
-    padding: 11px 12px; font-size: 15px; font-family: inherit;
+    padding: 11px 12px; font-size: 16px; font-family: inherit;
     background: #FFFFFF; color: var(--text);
   }
   input::placeholder, textarea::placeholder { color: #A6B0CE; }
@@ -138,16 +138,16 @@
     outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(23,70,201,0.12);
   }
   textarea { resize: vertical; min-height: 70px; }
-  .radio-group label { display: flex; align-items: center; font-weight: 400; font-size: 14px; padding: 9px 0; margin-bottom: 0; }
+  .radio-group label { display: flex; align-items: center; font-weight: 400; font-size: 15px; padding: 9px 0; margin-bottom: 0; }
   .radio-group input[type=radio] { margin-right: 10px; accent-color: var(--blue); width: 18px; height: 18px; }
   .etc-input { margin-top: 6px; margin-left: 28px; width: calc(100% - 28px); }
-  .consent-text { font-size: 12.5px; color: var(--sub); line-height: 1.6; margin-bottom: 12px; }
+  .consent-text { font-size: 13.5px; color: var(--sub); line-height: 1.6; margin-bottom: 12px; }
 
   /* 신청확인 */
   .check-toggle-row { margin-bottom: 14px; }
   .check-toggle-btn {
     width: 100%; background: var(--card-light); border: 1px solid var(--border);
-    border-radius: 12px; padding: 13px; font-size: 13.5px; font-weight: 700;
+    border-radius: 12px; padding: 13px; font-size: 14.5px; font-weight: 700;
     color: var(--blue); cursor: pointer;
   }
   .check-card { }
@@ -155,38 +155,38 @@
   .check-inputs input { flex: 1; }
   .check-btn {
     width: 100%; background: var(--navy); color: #fff; border: none;
-    border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 700; cursor: pointer;
+    border-radius: 10px; padding: 12px; font-size: 15px; font-weight: 700; cursor: pointer;
   }
   .check-btn:disabled { background: #C7D1EE; color: #8291BE; }
-  .check-result { margin-top: 12px; font-size: 13.5px; line-height: 1.7; }
+  .check-result { margin-top: 12px; font-size: 14.5px; line-height: 1.7; }
   .check-result.found { color: var(--navy); background: var(--card-light); border-radius: 10px; padding: 12px 14px; }
   .check-result.notfound { color: #D64545; }
 
   .submit-btn {
     width: 100%; background: linear-gradient(90deg, var(--navy), var(--blue));
     color: #FFFFFF; border: none; border-radius: 12px; padding: 15px;
-    font-size: 16px; font-weight: 700; margin-top: 10px; cursor: pointer;
+    font-size: 17px; font-weight: 700; margin-top: 10px; cursor: pointer;
   }
   .submit-btn:disabled { background: #C7D1EE; color: #8291BE; }
-  .msg { text-align: center; font-size: 14px; margin-top: 12px; min-height: 20px; }
+  .msg { text-align: center; font-size: 15px; margin-top: 12px; min-height: 20px; }
   .msg.error { color: #D64545; }
 
   .result-screen { display: none; text-align: center; padding: 60px 20px; }
-  .result-screen h2 { font-size: 19px; margin-bottom: 10px; color: var(--navy); }
-  .result-screen p { font-size: 14px; color: var(--sub); line-height: 1.7; margin-bottom: 26px; }
+  .result-screen h2 { font-size: 21px; margin-bottom: 10px; color: var(--navy); }
+  .result-screen p { font-size: 15px; color: var(--sub); line-height: 1.7; margin-bottom: 26px; }
   .result-btns { display: flex; flex-direction: column; gap: 10px; max-width: 320px; margin: 0 auto; }
   .result-btn {
     display: block; text-align: center; padding: 14px; border-radius: 12px;
-    font-size: 14.5px; font-weight: 700; text-decoration: none; cursor: pointer; border: none;
+    font-size: 15.5px; font-weight: 700; text-decoration: none; cursor: pointer; border: none;
   }
   .result-btn.primary { background: linear-gradient(90deg, var(--navy), var(--blue)); color: #fff; }
   .result-btn.secondary { background: var(--card-light); color: var(--navy); border: 1px solid var(--border); }
 
   /* 하단 신청하러가기 */
   .bottom-cta { padding: 40px 0 10px; text-align: center; }
-  .bottom-cta p { font-size: 13px; color: var(--sub); margin-bottom: 14px; }
+  .bottom-cta p { font-size: 14px; color: var(--sub); margin-bottom: 14px; }
 
-  footer { padding: 30px 0 50px; text-align: center; font-size: 12px; color: var(--sub); }
+  footer { padding: 30px 0 50px; text-align: center; font-size: 13px; color: var(--sub); }
 </style>
 </head>
 <body>
@@ -262,7 +262,7 @@
           <textarea name="question" placeholder="궁금하신 점을 미리 남겨주세요 (선택)"></textarea>
         </div>
         <div class="card">
-          <label>보조기기 사용 여부 <span style="font-weight:400;color:var(--sub);font-size:12.5px;">(해당 시 체크, 그 외 지원이 필요하면 기타에 작성)</span></label>
+          <label>보조기기 사용 여부 <span style="font-weight:400;color:var(--sub);font-size:13.5px;">(해당 시 체크, 그 외 지원이 필요하면 기타에 작성)</span></label>
           <div class="radio-group">
             <label><input type="radio" name="assistive" value="해당없음" checked> 해당없음</label>
             <label><input type="radio" name="assistive" value="휠체어를 이용합니다."> 휠체어를 이용합니다.</label>

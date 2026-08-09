@@ -9,6 +9,8 @@
     --navy: #0E2158;
     --blue: #1746C9;
     --cyan: #1FB6CC;
+    --accent: #2FE0FF;
+    --hero-bg: #081029;
     --text: #1B2440;
     --sub: #6B7594;
     --card: #FFFFFF;
@@ -39,24 +41,46 @@
   }
   nav a { color: var(--sub); text-decoration: none; white-space: nowrap; }
   nav a.active, nav a:hover { color: var(--blue); }
+  nav a.nav-badge {
+    background: var(--accent); color: var(--hero-bg);
+    padding: 5px 14px; border-radius: 999px; font-weight: 800;
+  }
+  nav a.nav-badge:hover { color: var(--hero-bg); opacity: 0.9; }
 
   /* 히어로 */
   .hero {
-    padding: 40px 0 32px;
-    background: linear-gradient(180deg, var(--card-light) 0%, #FFFFFF 100%);
+    padding: 56px 0 40px;
+    background: linear-gradient(160deg, var(--hero-bg) 0%, var(--navy) 100%);
+    position: relative; overflow: hidden;
   }
-  .hero .eyebrow { font-size: 13px; color: var(--blue); font-weight: 700; margin-bottom: 10px; }
-  .hero h1 { font-size: 25px; line-height: 1.4; margin: 0 0 14px; color: var(--navy); }
-  .hero .desc { font-size: 14px; color: var(--sub); line-height: 1.7; margin-bottom: 22px; }
+  .hero .wrap { position: relative; z-index: 1; }
+  .hero .eyebrow {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--accent); font-weight: 700; margin-bottom: 18px; letter-spacing: 0.2px;
+  }
+  .hero .eyebrow::before { content: ''; width: 22px; height: 2px; background: var(--accent); display: inline-block; }
+  .hero h1 {
+    font-size: 34px; line-height: 1.28; margin: 0 0 16px;
+    color: #FFFFFF; font-weight: 800; letter-spacing: -0.5px;
+  }
+  .hero h1 .year { display: block; color: var(--accent); font-size: 42px; margin-bottom: 2px; }
+  .hero .desc { font-size: 14px; color: #B9C4E6; line-height: 1.7; margin-bottom: 26px; }
   .hero-stats {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+    display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px;
   }
   .hero-stats .stat {
-    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-    padding: 12px 14px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); border-radius: 10px;
+    padding: 10px 14px;
   }
-  .hero-stats .stat .label { font-size: 11px; color: var(--sub); margin-bottom: 4px; }
-  .hero-stats .stat .value { font-size: 15px; font-weight: 700; color: var(--navy); }
+  .hero-stats .stat .label { font-size: 10.5px; letter-spacing: 0.5px; color: var(--accent); margin-bottom: 4px; font-weight: 700; }
+  .hero-stats .stat .value { font-size: 14px; font-weight: 700; color: #FFFFFF; }
+
+  .dday-row {
+    display: flex; align-items: center; gap: 16px;
+    padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.16);
+  }
+  .dday-num { font-size: 32px; font-weight: 800; color: var(--accent); white-space: nowrap; }
+  .dday-text { font-size: 12.5px; color: #B9C4E6; line-height: 1.6; }
 
   .cta-btn {
     display: inline-block; width: 100%; text-align: center;
@@ -142,7 +166,7 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="#apply">신청</a>
+    <a href="#apply" class="nav-badge">신청</a>
     <a href="#overview">개요</a>
     <a href="#schedule">일정</a>
     <a href="#access">오시는 길</a>
@@ -155,11 +179,16 @@
   <div class="hero">
     <div class="wrap">
       <div class="eyebrow">부산뇌병변복지관 · 스마트 복지지원사업</div>
-      <h1>로봇 활용을 통한<br>재활훈련 성과보고회</h1>
+      <h1><span class="year">2026</span>로봇 활용을 통한<br>재활훈련 성과보고회</h1>
       <div class="desc">2025년 부산사회복지공동모금회 기획사업으로 부산지역 장애인 및 노인복지관 6개 기관이 수행한 성과를 보고하는 행사입니다. 행사당일은 사업에 활용된 로봇을 전시하고 시연하는 행사도 마련하였으니, 많은 참여 바랍니다.</div>
       <div class="hero-stats">
-        <div class="stat"><div class="label">일시</div><div class="value">2026.9.8(화) 14:00~17:00</div></div>
+        <div class="stat"><div class="label">DATE</div><div class="value">2026.9.8(화)</div></div>
+        <div class="stat"><div class="label">TIME</div><div class="value">14:00~17:00</div></div>
         <div class="stat"><div class="label">장소</div><div class="value">부산시사회복지종합센터 2층 대강당</div></div>
+      </div>
+      <div class="dday-row">
+        <div class="dday-num" id="ddayNum">D-DAY</div>
+        <div class="dday-text">성과보고회까지<br>2026년 9월 8일 화요일 오후 2시</div>
       </div>
     </div>
   </div>
@@ -283,6 +312,18 @@
 </div>
 
 <script>
+  // D-day 계산
+  (function () {
+    const eventDate = new Date('2026-09-08T00:00:00+09:00');
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const diff = Math.round((eventDate - today) / (1000 * 60 * 60 * 24));
+    const el = document.getElementById('ddayNum');
+    if (diff > 0) el.textContent = 'D-' + diff;
+    else if (diff === 0) el.textContent = 'D-DAY';
+    else el.textContent = 'D+' + Math.abs(diff);
+  })();
+
   // ▼▼▼ 배포 후 Apps Script 웹 앱 URL로 반드시 교체 ▼▼▼
   const GAS_URL = "https://script.google.com/macros/s/AKfycbzwdnyDpLKEaBFJphLTbdW37rvoTusRV3y7vC_uSYpyJ9HEE6BEsDdSAfylK69CLaof/exec";
 

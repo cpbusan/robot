@@ -9,7 +9,7 @@
 <!-- 카카오톡/문자 공유 시 미리보기 (Open Graph) -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="로봇 활용을 통한 재활훈련 성과보고회">
-<meta property="og:description" content="2026.9.8.(화) 14:00~17:00 · 부산사회복지종합센터 2층 대강당 · 지금 신청하세요">
+<meta property="og:description" content="2026.9.8.(화) 14:00~17:00 · 부산시사회복지종합센터 2층 대강당 · 지금 신청하세요">
 <meta property="og:image" content="https://cpbusan.github.io/robot/thumbnail.jpg">
 <meta property="og:url" content="https://cpbusan.github.io/robot/">
 <meta name="twitter:card" content="summary_large_image">
@@ -197,6 +197,12 @@
   .check-result.found { color: var(--navy); background: var(--card-light); border-radius: 10px; padding: 12px 14px; }
   .check-result.notfound { color: #D64545; }
 
+  /* 신청 마감 안내 */
+  .closed-card { text-align: center; padding: 40px 20px; }
+  .closed-icon { font-size: 32px; margin-bottom: 12px; }
+  .closed-title { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+  .closed-desc { font-size: 13.5px; color: var(--sub); line-height: 1.7; }
+
   .submit-btn {
     width: 100%; background: linear-gradient(90deg, var(--navy), var(--blue));
     color: #FFFFFF; border: none; border-radius: 12px; padding: 15px;
@@ -265,7 +271,7 @@
       <div class="hero-stats">
         <div class="stat"><div class="label">날짜</div><div class="value">2026.9.8.(화)</div></div>
         <div class="stat"><div class="label">시간</div><div class="value">14:00~17:00</div></div>
-        <div class="stat"><div class="label">장소</div><div class="value">부산사회복지종합센터 2층 대강당</div></div>
+        <div class="stat"><div class="label">장소</div><div class="value">부산시사회복지종합센터 2층 대강당</div></div>
       </div>
       <div class="dday-row">
         <div class="dday-num" id="ddayNum">D-DAY</div>
@@ -294,6 +300,7 @@
         <div class="check-result" id="checkResult"></div>
       </div>
 
+      <div id="applyFormWrap">
       <form id="individualForm">
         <div class="card">
           <label>이름<span class="req">*</span></label>
@@ -344,6 +351,13 @@
         <button type="submit" class="submit-btn" id="individualSubmitBtn">제출하기</button>
         <div class="msg" id="individualMsg"></div>
       </form>
+      </div>
+
+      <div class="card closed-card" id="closedCard" style="display:none;">
+        <div class="closed-icon">🔒</div>
+        <div class="closed-title">신청이 마감되었습니다</div>
+        <div class="closed-desc">참가 신청 접수가 종료되었습니다.<br>문의사항은 아래 연락처로 연락해주세요.<br>부산뇌병변복지관 (051-333-3888)</div>
+      </div>
     </div>
   </section>
 
@@ -355,7 +369,7 @@
       <div class="info-table">
         <div class="info-row"><div class="k">행사명</div><div class="v">복지기술을 활용한 스마트 복지지원사업<br>"로봇 활용을 통한 재활훈련 성과보고회"</div></div>
         <div class="info-row"><div class="k">일시</div><div class="v">2026년 9월 8일(화) 14:00~17:00</div></div>
-        <div class="info-row"><div class="k">장소</div><div class="v">부산사회복지종합센터 2층 대강당</div></div>
+        <div class="info-row"><div class="k">장소</div><div class="v">부산시사회복지종합센터 2층 대강당</div></div>
         <div class="info-row"><div class="k">행사내용</div><div class="v">성과보고, 로봇 전시 및 시연</div></div>
         <div class="info-row"><div class="k">문의</div><div class="v">부산뇌병변복지관 (051-333-3888)</div></div>
       </div>
@@ -394,12 +408,12 @@
       <h2>오시는 길</h2>
       <div class="section-desc">행사 당일 주차가 어렵습니다. 대중교통을 이용해 주세요.</div>
       <div class="notice-box">
-        <b>장소</b> 부산사회복지종합센터 2층 대강당<br><br>
+        <b>장소</b> 부산시사회복지종합센터 2층 대강당<br><br>
         * 센터 내 외부차량 주차가 불가하여 대중교통을 이용해주시기 바랍니다.<br>
         * 주차가 필요하신 분은 센터 인근 '투루파킹 동해선동래역 주차장'(부산 동래구 낙민로 27)을 이용부탁드립니다. (주차비 개인부담)
       </div>
 
-      <div class="bottom-cta">
+      <div class="bottom-cta" id="bottomCta">
         <p>참가를 원하시면 아래 버튼을 눌러 신청해주세요.</p>
         <a href="#apply" class="cta-btn">신청하러 가기 →</a>
       </div>
@@ -424,7 +438,7 @@
         </div>
         <div>
           <div class="f-label">일시 · 장소</div>
-          <div class="f-value">2026.9.8.(화) 14:00~17:00<br>부산사회복지종합센터 2층 대강당</div>
+          <div class="f-value">2026.9.8.(화) 14:00~17:00<br>부산시사회복지종합센터 2층 대강당</div>
         </div>
       </div>
       <hr>
@@ -479,6 +493,17 @@
     if (diff > 0) el.textContent = 'D-' + diff;
     else if (diff === 0) el.textContent = 'D-DAY';
     else el.textContent = 'D+' + Math.abs(diff);
+  })();
+
+  // 신청 마감 체크: 2026-08-26 00:00 이후는 마감
+  (function () {
+    const deadline = new Date('2026-08-26T00:00:00+09:00');
+    const now = new Date();
+    if (now >= deadline) {
+      document.getElementById('applyFormWrap').style.display = 'none';
+      document.getElementById('closedCard').style.display = 'block';
+      document.getElementById('bottomCta').style.display = 'none';
+    }
   })();
 
   // ▼▼▼ 배포 후 Apps Script 웹 앱 URL로 반드시 교체 ▼▼▼

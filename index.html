@@ -112,7 +112,7 @@
   .info-row .v { padding: 13px 14px; color: var(--text); line-height: 1.6; }
 
   /* 일정 */
-  .timeline { border-left: 2px solid var(--border); margin-left: 6px; }
+  .timeline { margin-left: 6px; }
   .timeline-item { position: relative; padding: 0 0 26px 22px; }
   .timeline-item:last-child { padding-bottom: 0; }
   .timeline-item::before {
@@ -122,6 +122,9 @@
   }
   .timeline-item .time { font-size: 13.5px; font-weight: 700; color: var(--blue); margin-bottom: 3px; }
   .timeline-item .title { font-size: 15.5px; font-weight: 600; }
+  .speaker-list { margin-top: 8px; }
+  .speaker-line { font-size: 13.5px; font-weight: 600; color: var(--text); margin-top: 8px; }
+  .speaker-name { font-size: 13px; font-weight: 400; color: var(--sub); margin-left: 14px; margin-top: 2px; }
 
   /* 오시는길 */
   .notice-box {
@@ -370,13 +373,16 @@
         <div class="timeline-item"><div class="time">14:50 – 15:00</div><div class="title">2부 행사 준비</div></div>
         <div class="timeline-item"><div class="time">15:00 – 15:10</div><div class="title">[2부] 개회 및 축사</div></div>
         <div class="timeline-item"><div class="time">15:10 – 15:50</div><div class="title">특별 강연: 로봇재활의 현재와 미래<br><span style="font-weight:400;color:var(--sub);">양승필 실장(국립재활원)</span></div></div>
-        <div class="timeline-item"><div class="time">15:50 – 16:30</div><div class="title">사업 성과 보고<br>
-          <span style="font-weight:400;color:var(--sub);">
-          발표1. 보행로봇재활사업의 성과(장애인) / 김성진(부산뇌병변복지관 작업치료사)<br>
-          발표2. 상하지 로봇재활 사업의 성과(노인) / 하원호(부민노인복지관 물리치료사),
-          김유림(부산광역시다사랑복합문화예술회관 물리치료사),
-          임희정(사하구장애인종합복지관)
-          </span></div></div>
+        <div class="timeline-item"><div class="time">15:50 – 16:30</div><div class="title">사업 성과 보고
+          <div class="speaker-list">
+            <div class="speaker-line">발표1. 보행로봇재활사업의 성과(장애인)</div>
+            <div class="speaker-name">– 김성진(부산뇌병변복지관 작업치료사)</div>
+            <div class="speaker-line">발표2. 상하지 로봇재활 사업의 성과(노인)</div>
+            <div class="speaker-name">– 김유림(부산광역시다사랑복합문화예술회관 물리치료사)</div>
+            <div class="speaker-name">– 임희정(사하구장애인종합복지관)</div>
+            <div class="speaker-name">– 하원호(부민노인복지관 물리치료사)</div>
+          </div>
+        </div></div>
         <div class="timeline-item"><div class="time">16:30 – 17:00</div><div class="title">질의 응답</div></div>
       </div>
     </div>

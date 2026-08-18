@@ -8,7 +8,7 @@
 
 <!-- 카카오톡/문자 공유 시 미리보기 (Open Graph) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="로봇 활용을 통한 재활훈련 성과보고회">https://script.google.com/macros/s/AKfycbzwdnyDpLKEaBFJphLTbdW37rvoTusRV3y7vC_uSYpyJ9HEE6BEsDdSAfylK69CLaof/exec
+<meta property="og:title" content="로봇 활용을 통한 재활훈련 성과보고회">
 <meta property="og:description" content="2026.9.8.(화) 14:00~17:00 · 부산사회복지종합센터 2층 대강당 · 지금 신청하세요">
 <meta property="og:image" content="https://cpbusan.github.io/robot/thumbnail.jpg">
 <meta property="og:url" content="https://cpbusan.github.io/robot/">
@@ -196,6 +196,14 @@
   .check-result { margin-top: 12px; font-size: 14.5px; line-height: 1.7; }
   .check-result.found { color: var(--navy); background: var(--card-light); border-radius: 10px; padding: 12px 14px; }
   .check-result.notfound { color: #D64545; }
+  .check-item { padding: 10px 0; border-top: 1px solid var(--border); }
+  .check-result.found .check-item:first-of-type { border-top: none; }
+  .cancel-btn {
+    display: block; margin-top: 8px; background: none; border: 1px solid #D64545;
+    color: #D64545; font-size: 12.5px; font-weight: 700; padding: 6px 12px;
+    border-radius: 8px; cursor: pointer;
+  }
+  .cancel-btn:disabled { opacity: 0.5; cursor: default; }
 
   /* 신청 마감 안내 */
   .closed-card { text-align: center; padding: 40px 20px; }
@@ -296,6 +304,7 @@
           <input type="text" id="checkName" placeholder="이름">
           <input type="text" id="checkLast4" placeholder="연락처 뒤 4자리" maxlength="4" inputmode="numeric">
         </div>
+        <div style="font-size:12px;color:var(--sub);margin:-6px 0 12px;">이름 또는 연락처 뒤 4자리, 둘 중 하나만 입력해도 조회할 수 있어요.</div>
         <button type="button" class="check-btn" id="checkBtn">확인하기</button>
         <div class="check-result" id="checkResult"></div>
       </div>
@@ -497,7 +506,7 @@
 
   // 신청 마감 체크: 2026-08-26 00:00 이후는 마감
   (function () {
-    const deadline = new Date('2026-08-26T00:00:00+09:00');
+    const deadline = new Date('2026-09-01T00:00:00+09:00');
     const now = new Date();
     if (now >= deadline) {
       document.getElementById('applyFormWrap').style.display = 'none';
@@ -548,14 +557,19 @@
     checkToggleBtn.textContent = show ? '신청 확인 닫기' : '이미 신청하셨나요? 신청 확인하기';
   });
 
-  checkBtn.addEventListener('click', async () => {
+  async function runCheck() {
     const name = document.getElementById('checkName').value.trim();
     const last4 = document.getElementById('checkLast4').value.trim();
     checkResult.textContent = '';
     checkResult.className = 'check-result';
 
-    if (!name || last4.length !== 4) {
-      checkResult.textContent = '이름과 연락처 뒤 4자리를 정확히 입력해주세요.';
+    if (!name && !last4) {
+      checkResult.textContent = '이름 또는 연락처 뒤 4자리 중 하나 이상 입력해주세요.';
+      checkResult.classList.add('notfound');
+      return;
+    }
+    if (last4 && !/^[0-9]{4}$/.test(last4)) {
+      checkResult.textContent = '연락처 뒤 4자리는 숫자 4자리로 입력해주세요.';
       checkResult.classList.add('notfound');
       return;
     }
@@ -569,12 +583,20 @@
       const data = await res.json();
 
       if (data.found) {
-        checkResult.innerHTML =
-          '✅ 신청이 확인되었습니다.<br>' +
-          '이름: ' + data.data.name + '<br>' +
-          '소속: ' + data.data.org + '<br>' +
-          '신청일시: ' + data.data.timestamp;
+        const canCancel = !!last4; // 취소는 연락처 뒤4자리 확인이 있어야 가능
+        const list = data.data.map((item, idx) => {
+          const cancelBtn = canCancel
+            ? '<button type="button" class="cancel-btn" data-name="' + encodeURIComponent(item.name) + '" data-ts="' + encodeURIComponent(item.timestamp) + '" data-last4="' + encodeURIComponent(last4) + '">신청 취소</button>'
+            : '';
+          return '<div class="check-item">이름: ' + item.name + ' · 소속: ' + item.org + '<br>신청일시: ' + item.timestamp + cancelBtn + '</div>';
+        }).join('');
+        checkResult.innerHTML = '✅ 신청 내역 ' + data.data.length + '건 확인되었습니다.' + list +
+          (canCancel ? '' : '<div style="font-size:12px;color:var(--sub);margin-top:8px;">* 취소하려면 연락처 뒤 4자리도 함께 입력해주세요.</div>');
         checkResult.classList.add('found');
+
+        checkResult.querySelectorAll('.cancel-btn').forEach(btn => {
+          btn.addEventListener('click', () => cancelApplication(btn));
+        });
       } else {
         checkResult.textContent = data.message || '신청 내역을 찾을 수 없습니다.';
         checkResult.classList.add('notfound');
@@ -586,7 +608,44 @@
 
     checkBtn.disabled = false;
     checkBtn.textContent = '확인하기';
-  });
+  }
+
+  async function cancelApplication(btn) {
+    const name = decodeURIComponent(btn.dataset.name);
+    const timestamp = decodeURIComponent(btn.dataset.ts);
+    const last4 = decodeURIComponent(btn.dataset.last4);
+
+    if (!confirm(name + '님의 ' + timestamp + ' 신청을 취소하시겠습니까?\n취소 후에는 되돌릴 수 없습니다.')) return;
+
+    btn.disabled = true;
+    btn.textContent = '취소 중...';
+
+    try {
+      const params = new URLSearchParams();
+      params.append('action', 'cancel');
+      params.append('name', name);
+      params.append('last4', last4);
+      params.append('timestamp', timestamp);
+
+      const res = await fetch(GAS_URL, { method: 'POST', body: params });
+      const data = await res.json();
+
+      if (data.result === 'success') {
+        alert('신청이 취소되었습니다.');
+        runCheck(); // 목록 새로고침
+      } else {
+        alert(data.message || '취소에 실패했습니다.');
+        btn.disabled = false;
+        btn.textContent = '신청 취소';
+      }
+    } catch (err) {
+      alert('취소 처리 중 오류가 발생했습니다. 네트워크 상태를 확인해주세요.');
+      btn.disabled = false;
+      btn.textContent = '신청 취소';
+    }
+  }
+
+  checkBtn.addEventListener('click', runCheck);
 
   /* 보조기기 기타 입력 토글 */
   document.getElementById('assistiveEtcRadio').addEventListener('change', () => {
